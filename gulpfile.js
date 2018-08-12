@@ -32,7 +32,7 @@ gulp.task('scripts', () =>
 );
 
 
-gulp.task('nodemon', function () { nodemon({script: 'index.js'}) });
+gulp.task('nodemon', function () { nodemon({script: 'app.js'}) });
 
 gulp.task('default', ['scss', 'nodemon', 'scripts'], () => {
   gulp.watch('dev/scss/**/*.scss', ['scss']);
