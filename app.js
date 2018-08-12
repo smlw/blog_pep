@@ -38,6 +38,23 @@ app.get('/', function (req, res) {
   res.render('index'); 
 });
 
+//catch 404 and forward to error handler
+app.use((req, res, next) => {
+  const err = new Error('Not found');
+  err.status = 404;
+  next(err);
+})
+
+// error handler
+// eslint-diable-next-line no-unused-vars
+app.use((error, req, res, next) => {
+  res.status(error.status || 500);
+  res.render('error', {
+    message: error.message,
+    error: !config.IS_PRODUCTION ? error : {}
+  })
+});
+
 app.listen(config.PORT, () =>
   console.log(`Example app listening on port ${config.PORT}!`)
 );
