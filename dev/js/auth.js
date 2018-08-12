@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 $(function() {
-    // toggle
+    // toggle 1
     var flag = true;
     $('.switch-button').on('click', function(e) {
       e.preventDefault();
