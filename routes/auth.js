@@ -133,5 +133,15 @@ router.post('/login', (req, res) => {
 
 });
 
+router.get('/logout', (req, res) => {
+    if(req.session){
+        req.session.destroy(() => {
+            res.redirect('/');
+        })
+    } else {
+        res.redirect('/');
+    }
+})
+
 
 module.exports = router;
