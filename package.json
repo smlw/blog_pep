@@ -22,6 +22,7 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.18.3",
     "dotenv": "^6.0.0",
     "ejs": "^2.6.1",
