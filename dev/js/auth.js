@@ -16,6 +16,12 @@ $(function() {
       }
     });
 
+    /* clear */
+    $('input').on('focus', function(){
+      $('p.error').remove();
+      $('input').removeClass('error');
+    })
+
     /* register button */
     $('.register-button').on('click', function(e){
       e.preventDefault();
@@ -32,10 +38,17 @@ $(function() {
         contentType: 'application/json',
         url: '/api/auth/register'
       }).done(function(data){
-        console.log(data);
-      })
+        if(!data.ok){
+          $('.register h2').after('<p class="error">' + data.error + '</p>');
+          data.fields.forEach( function(item) {
+            $('input[name='+ item +']').addClass('error')
+          })
+        } else {
+          $('.register h2').after('<p class="success"> Отлино! </p>');
+        }
+      }) 
     });
-  });
+  }); 
 
 
 

@@ -27,7 +27,7 @@ router.post('/register', (req, res) => {
             fields: ['password', 'passwordConfirm']
         });
     } else {
-
+ 
         models.User.findOne({
             login
         }).then(user => {
