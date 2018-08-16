@@ -2,7 +2,10 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const staticAsset = require('static-asset');
- 
+
+const session = require('express-session')
+const MongoStore = require('connect-mongo')(session);
+
 const routes = require('./routes')
 
 //database
@@ -24,6 +27,18 @@ mongoose.connect(config.MONGO_URL);
 
 // express
 const app = express();
+
+//session
+app.use(
+  session({
+    secret: config.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({
+      mongooseConnection: mongoose.connection
+    })
+  })
+);
 
 // sets & uses
 app.set('view engine', 'ejs');
