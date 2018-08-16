@@ -5,7 +5,9 @@ $(function() {
     $('.switch-button').on('click', function(e) {
       e.preventDefault();
 
-      $('input').val('')
+      $('input').val('');
+      $('p.error').remove();
+      $('input').removeClass('error');
   
       if (flag) {
         flag = false;
@@ -27,6 +29,8 @@ $(function() {
     /* register button */
     $('.register-button').on('click', function(e){
       e.preventDefault();
+      $('p.error').remove();
+      $('input').removeClass('error');
 
       var data = {
         login: $('#register-login').val(),
@@ -46,7 +50,8 @@ $(function() {
             $('input[name='+ item +']').addClass('error')
           })
         } else {
-          $('.register h2').after('<p class="success"> Отлино! </p>');
+          // $('.register h2').after('<p class="success"> Отлино! </p>');
+          $(location).attr('href', '/')
         }
       }) 
     });
@@ -57,6 +62,8 @@ $(function() {
 
   $('.login-button').on('click', function(e){
     e.preventDefault();
+    $('p.error').remove();
+    $('input').removeClass('error');
 
     var data = {
       login: $('#login-login').val(),
@@ -75,7 +82,8 @@ $(function() {
           $('input[name='+ item +']').addClass('error')
         })
       } else {
-        $('.login h2').after('<p class="success"> Отлино! </p>');
+        //$('.login h2').after('<p class="success"> Отлино! </p>');
+        $(location).attr('href', '/')
       }
     }) 
   });

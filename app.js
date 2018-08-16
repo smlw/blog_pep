@@ -53,7 +53,14 @@ app.use(
 
 // routers
 app.get('/', function (req, res) {
-  res.render('index'); 
+  const id = req.session.userId;
+  const login = req.session.userLogin;
+  res.render('index', {
+    user: {
+      id,
+      login
+    }
+  }); 
 });
 app.use('/api/auth', routes.auth)
 
