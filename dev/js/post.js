@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
-
 $(function(){
+    
     //eslint-disable-next-line
     const editor = new MediumEditor('#post-body', {
         placeholder: {
@@ -9,15 +9,20 @@ $(function(){
         }
     });
 
+    function removeErrors(){
+        $('.post-form p.error').remove();
+        $('.post-form input, #post-body').removeClass('error');
+    }
+
   // clear
   $('.post-form input, #post-body').on('focus', function() {
-    $('.post-form p.error').remove();
-    $('.post-form input, #post-body').removeClass('error');
+    removeErrors()
 });
 
   // publish
   $('.publish-button').on('click', function(e) {
     e.preventDefault();
+    removeErrors()
 
     var data = {
       title: $('#post-title').val(),

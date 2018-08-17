@@ -1,13 +1,18 @@
 /* eslint-disable no-undef */
 $(function() {
+
+    function removeErrors(){
+        $('form.login p.error, form.register p.error').remove();
+        $('form.login input, form.register input').removeClass('error');
+    }
+
     // toggle 1
     var flag = true;
     $('.switch-button').on('click', function(e) {
       e.preventDefault();
 
       $('input').val('');
-      $('p.error').remove();
-      $('input').removeClass('error');
+      removeErrors()
   
       if (flag) {
         flag = false;
@@ -22,15 +27,13 @@ $(function() {
 
   // clear
   $('form.login input, form.register input').on('focus', function() {
-    $('form.login p.error, form.register p.error').remove();
-    $('form.login input, form.register input').removeClass('error');
-});
+      removeErrors()
+  });
 
     /* register button */
     $('.register-button').on('click', function(e){
       e.preventDefault();
-      $('p.error').remove();
-      $('input').removeClass('error');
+      removeErrors()
 
       var data = {
         login: $('#register-login').val(),
@@ -62,8 +65,6 @@ $(function() {
 
   $('.login-button').on('click', function(e){
     e.preventDefault();
-    $('p.error').remove();
-    $('input').removeClass('error');
 
     var data = {
       login: $('#login-login').val(),
@@ -93,8 +94,8 @@ $(function() {
 
 /* eslint-enable no-undef */
 /* eslint-disable no-undef */
-
 $(function(){
+    
     //eslint-disable-next-line
     const editor = new MediumEditor('#post-body', {
         placeholder: {
@@ -103,15 +104,20 @@ $(function(){
         }
     });
 
+    function removeErrors(){
+        $('.post-form p.error').remove();
+        $('.post-form input, #post-body').removeClass('error');
+    }
+
   // clear
   $('.post-form input, #post-body').on('focus', function() {
-    $('.post-form p.error').remove();
-    $('.post-form input, #post-body').removeClass('error');
+    removeErrors()
 });
 
   // publish
   $('.publish-button').on('click', function(e) {
     e.preventDefault();
+    removeErrors()
 
     var data = {
       title: $('#post-title').val(),
