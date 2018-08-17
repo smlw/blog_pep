@@ -18,7 +18,7 @@ router.get('/add', (req, res) => {
 
 router.post('/add', (req, res) => {
 
-  const title = req.body.title;
+  const title = req.body.title.trim().replace(/ +(?= )/g, '');
   const body = req.body.body;
 
   if(!title || !body){
