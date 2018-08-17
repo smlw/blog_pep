@@ -17,11 +17,51 @@ router.get('/add', (req, res) => {
 });
 
 router.post('/add', (req, res) => {
-  console.log(req.body);
 
-  res.json({
-    ok: true
-  })
-})
+  const title = req.body.title;
+  const body = req.body.body;
+
+  if(!title || !body){
+    const fields = [];
+
+    if(!title) fields.push('title');
+    if(!body) fields.push('body');
+
+    res.json({
+      ok: false,
+      error: 'Все поля должны быть запонены',
+      fields
+    })
+  } else if (title.length < 3 || title.length > 64){
+    res.json({
+        ok: false,
+        error: 'Длина заголовка от 3 до 64 символов',
+        fields: ['title']
+    });
+  } else if (body.length < 3){
+    res.json({
+        ok: false,
+        error: 'Длина текста от 3 символов',
+        fields: ['body']
+    });
+  } else {
+    models.Post.create({
+        title,
+        body
+    }).then(post => {
+      console.log(post);
+      res.json({
+        ok: true
+      })
+    }).catch(err => {
+      console.log(err);
+      res.json({
+        ok: false
+      })
+    }) ;
+
+  }
+
+}); 
 
 module.exports = router;

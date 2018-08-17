@@ -6,7 +6,8 @@ const staticAsset = require('static-asset');
 const session = require('express-session')
 const MongoStore = require('connect-mongo')(session);
 
-
+// Routers
+const routes = require('./routes')
 
 //database
 const mongoose = require('mongoose');
@@ -63,10 +64,7 @@ app.get('/', function (req, res) {
   }); 
 });
 
-
 // Routers
-const routes = require('./routes')
-
 app.use('/api/auth', routes.auth);
 app.use('/post', routes.post);
 

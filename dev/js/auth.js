@@ -37,7 +37,7 @@ $(function() {
         password: $('#register-password').val(),
         passwordConfirm: $('#register-password-confirm').val()
       }
-
+ 
       $.ajax({
         type: 'POST',
         data: JSON.stringify(data),
