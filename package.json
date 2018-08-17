@@ -36,6 +36,7 @@
     "mongoose": "^5.2.7",
     "mongoose-url-slugs": "^1.0.2",
     "static-asset": "^0.6.0",
-    "transliter": "^2.2.1"
+    "transliter": "^2.2.1",
+    "turndown": "^4.0.2"
   }
 }

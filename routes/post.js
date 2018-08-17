@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const models = require('../models');
+const TurndownService = require('turndown');
 
 // GET for add
 
@@ -16,10 +17,12 @@ router.get('/add', (req, res) => {
       }); 
 });
 
+// POST is add
 router.post('/add', (req, res) => {
 
   const title = req.body.title.trim().replace(/ +(?= )/g, '');
   const body = req.body.body;
+  const turndownService = new TurndownService();
 
   if(!title || !body){
     const fields = [];
@@ -47,7 +50,7 @@ router.post('/add', (req, res) => {
   } else {
     models.Post.create({
         title,
-        body
+        body: turndownService.turndown(body)
     }).then(post => {
       console.log(post);
       res.json({

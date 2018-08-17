@@ -9,11 +9,11 @@ $(function(){
         }
     });
 
-    // clear
-    $('.post-form input, #post-body').on('focus', function() {
-        $('.post-form p.error').remove();
-        $('.post-form input, #post-body').removeClass('error');
-    });
+  // clear
+  $('.post-form input, #post-body').on('focus', function() {
+    $('.post-form p.error').remove();
+    $('.post-form input, #post-body').removeClass('error');
+});
 
   // publish
   $('.publish-button').on('click', function(e) {
@@ -39,8 +39,8 @@ $(function(){
             });
             }
         } else {
-            $('.post-form h2').after('<p class="success">Отлично!</p>');
-            // $(location).attr('href', '/');
+            // $('.post-form h2').after('<p class="success">Отлично!</p>');
+            $(location).attr('href', '/');
         }
         });
     });

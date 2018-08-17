@@ -20,11 +20,11 @@ $(function() {
       }
     });
 
-    /* clear */
-    $('input').on('focus', function(){
-      $('p.error').remove();
-      $('input').removeClass('error');
-    })
+  // clear
+  $('form.login input, form.register input').on('focus', function() {
+    $('form.login p.error, form.register p.error').remove();
+    $('form.login input, form.register input').removeClass('error');
+});
 
     /* register button */
     $('.register-button').on('click', function(e){
@@ -103,11 +103,11 @@ $(function(){
         }
     });
 
-    // clear
-    $('.post-form input, #post-body').on('focus', function() {
-        $('.post-form p.error').remove();
-        $('.post-form input, #post-body').removeClass('error');
-    });
+  // clear
+  $('.post-form input, #post-body').on('focus', function() {
+    $('.post-form p.error').remove();
+    $('.post-form input, #post-body').removeClass('error');
+});
 
   // publish
   $('.publish-button').on('click', function(e) {
@@ -133,8 +133,8 @@ $(function(){
             });
             }
         } else {
-            $('.post-form h2').after('<p class="success">Отлично!</p>');
-            // $(location).attr('href', '/');
+            // $('.post-form h2').after('<p class="success">Отлично!</p>');
+            $(location).attr('href', '/');
         }
         });
     });
