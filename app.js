@@ -13,6 +13,7 @@ const routes = require('./routes')
 const mongoose = require('mongoose');
 const config = require('./config');
 
+
 mongoose.Promise = global.Promise;
 mongoose.set('debug', config.IS_PRODUCTION);
 
@@ -22,6 +23,7 @@ mongoose.connection
   .once('open', () => {
     const info = mongoose.connections[0];
     console.log(`Connected to ${info.host}:${info.port}/${info.name}`);
+    //require('./mocks')();
   });
 
 mongoose.connect(config.MONGO_URL);
