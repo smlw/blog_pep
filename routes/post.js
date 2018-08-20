@@ -6,21 +6,31 @@ const TurndownService = require('turndown');
 // GET for add
 
 router.get('/add', (req, res) => {
-    const id = req.session.userId;
-    const login = req.session.userLogin;
+    const userId = req.session.userId;
+    const userLogin = req.session.userLogin;
 
-    res.render('post/add', {
+    if(!userId || !userLogin){
+      res.redirect('/')
+    } else {
+      res.render('post/add', {
         user: {
-          id,
-          login
+          id: userId,
+          login: userLogin
         }
       }); 
+    }
 });
 
 // POST is add
 router.post('/add', (req, res) => {
 
-  const title = req.body.title.trim().replace(/ +(?= )/g, '');
+  const userId = req.session.userId;
+  const userLogin = req.session.userLogin;
+
+  if(!userId || !userLogin){
+    res.redirect('/')
+  } else {
+    const title = req.body.title.trim().replace(/ +(?= )/g, '');
   const body = req.body.body;
   const turndownService = new TurndownService();
 
@@ -50,7 +60,8 @@ router.post('/add', (req, res) => {
   } else {
     models.Post.create({
         title,
-        body: turndownService.turndown(body)
+        body: turndownService.turndown(body),
+        owner: userId
     }).then(post => {
       console.log(post);
       res.json({
@@ -63,6 +74,7 @@ router.post('/add', (req, res) => {
       })
     }) ;
 
+  }
   }
 
 }); 
