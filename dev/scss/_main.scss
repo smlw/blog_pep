@@ -13,6 +13,12 @@
       // border: 1px solid $greyColor;
     }
 
+    .pagination{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
     .sidebar {
       flex: 1;
       position: relative;
