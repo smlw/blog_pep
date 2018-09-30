@@ -1,4 +1,4 @@
-<% include layout/header.ejs %>
+<% include ../layout/header.ejs %>
 
 <div class="main">
     <div class="container">
@@ -7,7 +7,7 @@
         <% for (var i = 0; i < posts.length; i++) { %>
         <div class="post">
           <div class="top">
-            <h2><%=posts[i].title %></h2>
+            <h2> <a href="posts/<%=posts[i].url %>"><%=posts[i].title %> </a></h2>
           </div>
           <div class="body">
             <p>
@@ -17,7 +17,7 @@
           <div class="bottom">
             <div class="author">
               Автор:
-              <a href="/"><%=posts[i].owner%></a>
+              <a href="/users/<%=posts[i].owner.login%>"><%=posts[i].owner.login%></a>
             </div>
             <a href="/">Комментарии</a>
           </div>
@@ -37,8 +37,8 @@
         </div>
 
       </div>
-      <% include layout/sidebar.ejs %>
+      <% include ../layout/sidebar.ejs %>
 </div>
 
 
-<% include layout/footer.ejs %>
+<% include ../layout/footer.ejs %>
