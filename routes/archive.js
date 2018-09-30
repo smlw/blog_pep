@@ -210,7 +210,6 @@ router.get('/users/:login/:page*?', async (req, res) => {
     //         .catch(() => {
     //             throw new Error('Server error')
     //         });
-
     // })
 
 });
