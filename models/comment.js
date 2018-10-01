@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const autopopulate = require('mongoose-autopopulate');
 
 const schema = new Schema({
     body: {
@@ -21,7 +22,8 @@ const schema = new Schema({
     children:[
         {
             type: Schema.Types.ObjectId,
-            ref: 'Comment'
+            ref: 'Comment',
+            autopopulate: true
         }
     ],
     createAt:{
@@ -32,6 +34,7 @@ const schema = new Schema({
     timestamps: false
 });
 
+schema.plugin(autopopulate);
 schema.set('toJSON', {virtuals: true});
 
 module.exports = mongoose.model('Comment', schema);

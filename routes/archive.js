@@ -35,37 +35,6 @@ async function posts(req, res) {
     } catch (error) {
         throw new Error('Server error ' + error.message);
     }
-
-
-
-
-    // models.Post.find({})
-    //     .skip(perPage * page - perPage)
-    //     .limit(perPage)
-    //     .populate('owner')
-    //     .sort({
-    //         createdAt: -1
-    //     })
-    //     .then(posts => {
-    //         models.Post.count()
-    //             .then(count => {
-    //                 res.render('archive/index', {
-    //                     posts,
-    //                     current: page,
-    //                     pages: Math.ceil(count / perPage),
-    //                     user: {
-    //                         id: userId,
-    //                         login: userLogin
-    //                     }
-    //                 });
-    //             })
-    //             .catch(() => {
-    //                 throw new Error('Server error')
-    //             });
-    //     })
-    //     .catch(() => {
-    //         throw new Error('Server error')
-    //     });
 }
 
 router.get('/', (req, res) => posts(req, res));
@@ -94,8 +63,14 @@ router.get('/posts/:post', async (req, res, next) => {
                 err.status = 404;
                 next(err);
             } else {
+
+                const comments = await models.Comment.find({
+                    post: post.id
+                });
+
                 res.render('post/post', {
                     post,
+                    comments,
                     user: {
                         id: userId,
                         login: userLogin
