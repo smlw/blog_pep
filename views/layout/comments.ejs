@@ -4,6 +4,13 @@
 
     <% items.forEach(function(item){ %>
     <li id="<%= item.id %>">
+        <div class="head">
+            <a href="/users/<%= item.owner.login %>"><%= item.owner.login %></a>
+            <spam class="date">
+                <%= moment(item.createAt).fromNow(); %>
+            </spam>
+        </div>
+
         <%= item.body %>
         <span class="link" id="reply">ответить</span>
         <%- include('./comments.ejs', {items: item.children}) %>

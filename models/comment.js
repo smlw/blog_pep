@@ -17,7 +17,8 @@ const schema = new Schema({
     },
     owner: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        autopopulate: true
     },
     children:[
         {
