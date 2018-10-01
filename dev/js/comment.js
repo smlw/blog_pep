@@ -2,7 +2,7 @@ $(function () {
 
     var commentForm;
 
-    $('#new, #reply').on('click', function (e) {
+    $('#new, #reply').on('click', function () {
         if(commentForm) commentForm.remove();
 
         commentForm = $('form.comment').clone(true, true);
@@ -16,19 +16,26 @@ $(function () {
         });
     })
 
+    $('form.comment .cancel').on('click', function (e) {
+        e.preventDefault();
+        commentForm.remove(); 
+    })
+
     $('form.comment .send').on('click', function (e) {
         e.preventDefault();
         // removeErrors()
 
         var data = {
-            body: $('#post-body').html()
+            post: $(".comments").attr('id')  ,
+            body: commentForm.find('textarea').val(),
+            parent: null
         };
 
         $.ajax({
             type: 'POST',
             data: JSON.stringify(data),
             contentType: 'application/json',
-            url: '/post/add'
+            url: '/comment/add'
         }).done(function (data) {
             console.log(data);
             if (!data.ok) {
