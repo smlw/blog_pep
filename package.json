@@ -33,7 +33,6 @@
     "gulp-concat": "^2.6.1",
     "gulp-uglifyjs": "^0.6.2",
     "jquery": "^3.3.1",
-    "medium-editor": "^5.23.3",
     "moment": "^2.22.2",
     "mongoose": "^5.2.7",
     "mongoose-autopopulate": "^0.8.1",

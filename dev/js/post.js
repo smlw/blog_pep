@@ -1,14 +1,6 @@
 /* eslint-disable no-undef */
 $(function(){
     
-    //eslint-disable-next-line
-    const editor = new MediumEditor('#post-body', {
-        placeholder: {
-            text: '',
-            hideOnClick: true
-        }
-    });
-
     function removeErrors(){
         $('.post-form p.error').remove();
         $('.post-form input, #post-body').removeClass('error');
