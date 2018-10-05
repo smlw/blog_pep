@@ -136,7 +136,27 @@ $(function(){
         }
         });
     });
-  
+
+    //upload
+    $('#fileinfo').on('submit', function(e) {
+        e.preventDefault(); 
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            type: 'POST',
+            url: '',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(r){
+                console.log(r)
+            },
+            error: function(e){
+                console.log(e)
+            }
+        })
+    })
 });
 
 /* eslint-enable no-undef */

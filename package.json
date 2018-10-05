@@ -37,6 +37,7 @@
     "mongoose": "^5.2.7",
     "mongoose-autopopulate": "^0.8.1",
     "mongoose-url-slugs": "^1.0.2",
+    "multer": "^1.4.0",
     "static-asset": "^0.6.0",
     "transliter": "^2.2.1",
     "turndown": "^4.0.2"
