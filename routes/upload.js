@@ -4,7 +4,7 @@ const path = require('path');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination: (req, file, cd) => {
         cd(null, 'uploads')
     },
     filename: (req, file, cb) => {
@@ -19,7 +19,7 @@ const upload = multer({
     },
     fileFilter: (req, file, cb) => {
         const ext = path.extname(file.originalname);
-        if(ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png'){
+        if (ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png') {
             const err = new Error('Extention');
             err.code = "EXTENTION"
             return cb(err)
@@ -29,7 +29,22 @@ const upload = multer({
 }).single('file')
 
 router.post('/image', (req, res) => {
+    upload(req, res, err => {
+        let error = '';
+        if (err) {
+            if (err.code === 'LIMIT_FILE_SIZE') {
+                error = "Картинка не более 2MB"
+            }
+            if (err.code === 'EXTENTION') {
+                error = "Только Jpeg And Png!"
+            }
+        }
 
-})
+        res.json({
+            ok: !error,
+            error
+        });
+    });
+});
 
 module.exports = router;

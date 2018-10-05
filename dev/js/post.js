@@ -50,7 +50,7 @@ $(function(){
 
         $.ajax({
             type: 'POST',
-            url: '',
+            url: '/upload/image',
             data: formData,
             processData: false,
             contentType: false,
