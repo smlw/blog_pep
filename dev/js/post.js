@@ -18,7 +18,7 @@ $(function(){
 
     var data = {
       title: $('#post-title').val(),
-      body: $('#post-body').html()
+      body: $('#post-body').val()
     };
 
     $.ajax({
