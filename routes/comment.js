@@ -8,8 +8,6 @@ router.post('/add', async (req, res) => {
   const userId = req.session.userId;
   const userLogin = req.session.userLogin;
 
-  console.log(req.body);
-
   if (!userId || !userLogin) {
     res.json({
       ok: false

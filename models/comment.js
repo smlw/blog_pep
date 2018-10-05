@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const autopopulate = require('mongoose-autopopulate');
 
+const Post = require('./post');
+
 const schema = new Schema({
     body: {
         type: String,
@@ -20,14 +22,12 @@ const schema = new Schema({
         ref: 'User',
         autopopulate: true
     },
-    children:[
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Comment',
-            autopopulate: true
-        }
-    ],
-    createAt:{
+    children: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Comment',
+        autopopulate: true
+    }],
+    createAt: {
         type: Date,
         default: Date.now
     }
@@ -35,7 +35,16 @@ const schema = new Schema({
     timestamps: false
 });
 
+schema.pre('save', async function (next) {
+    if (this.isNew) {
+        await Post.incCommentCount(this.post);
+    }
+    next();
+});
+
 schema.plugin(autopopulate);
-schema.set('toJSON', {virtuals: true});
+schema.set('toJSON', {
+    virtuals: true
+});
 
 module.exports = mongoose.model('Comment', schema);

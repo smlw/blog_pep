@@ -85,26 +85,6 @@ router.get('/posts/:post', async (req, res, next) => {
         } catch (error) {
             throw new Error("Server Error " + error.message);
         }
-
-        // models.Post.findOne({
-        //         url
-        //     })
-        //     .populate('owner')
-        //     .then(post => {
-        //         if (!post) {
-        //             const err = new Error('Not found');
-        //             err.status = 404;
-        //             next(err);
-        //         } else {
-        //             res.render('post/post', {
-        //                 post,
-        //                 user: {
-        //                     id: userId,
-        //                     login: userLogin
-        //                 }
-        //             })
-        //         }
-        //     }).catch(console.log)
     }
 });
 
@@ -153,43 +133,6 @@ router.get('/users/:login/:page*?', async (req, res) => {
     } catch (error) {
         throw new Error('Server Error')
     }
-
-    // models.User.findOne({
-    //     login
-    // }).then(user => {
-    //     models.Post.find({
-    //             owner: user.id
-    //         })
-    //         .skip(perPage * page - perPage)
-    //         .limit(perPage)
-    //         .populate('owner')
-    //         .sort({
-    //             createdAt: -1
-    //         })
-    //         .then(posts => {
-    //             models.Post.count({
-    //                     owner: user.id
-    //                 })
-    //                 .then(count => {
-    //                     res.render('archive/user', {
-    //                         posts,
-    //                         _user: user,
-    //                         current: page,
-    //                         pages: Math.ceil(count / perPage),
-    //                         user: {
-    //                             id: userId,
-    //                             login: userLogin
-    //                         }
-    //                     });
-    //                 })
-    //                 .catch(() => {
-    //                     throw new Error('Server error')
-    //                 });
-    //         })
-    //         .catch(() => {
-    //             throw new Error('Server error')
-    //         });
-    // })
 
 });
 
