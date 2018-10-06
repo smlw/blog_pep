@@ -1,11 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const path = require('path');
+const Sharp = require('sharp');
 const multer = require('multer');
+const mkdirp = require('mkdirp');
+
+const config = require('../config')
+
+const rs = () => Math.random().toString(36).slice(-3); 
 
 const storage = multer.diskStorage({
-    destination: (req, file, cd) => {
-        cd(null, 'uploads')
+    destination: (req, file, cb) => {
+        const dir = '/' + rs() + '/' + rs();
+        mkdirp(config.DESTINATION + dir, err => cb(err, config.DESTINATION + dir))
+        cb(null, config.DESTINATION + dir);
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
