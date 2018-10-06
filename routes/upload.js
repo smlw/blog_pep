@@ -4,19 +4,32 @@ const path = require('path');
 const Sharp = require('sharp');
 const multer = require('multer');
 const mkdirp = require('mkdirp');
+const diskStorage = require('../utils/diskStorage')
 
 const config = require('../config')
 
 const rs = () => Math.random().toString(36).slice(-3); 
 
-const storage = multer.diskStorage({
+const storage = diskStorage({
     destination: (req, file, cb) => {
         const dir = '/' + rs() + '/' + rs();
         mkdirp(config.DESTINATION + dir, err => cb(err, config.DESTINATION + dir))
-        cb(null, config.DESTINATION + dir);
+        // cb(null, config.DESTINATION + dir);
     },
     filename: (req, file, cb) => {
         cb(null, Date.now() + path.extname(file.originalname));
+    },
+    sharp : (req, file, cb) => {
+        const resizer = Sharp()
+            .resize(1024, 768)
+            .max()
+            .withoutEnlargement()
+            .toFormat('jpg')
+            .jpeg({
+                quality: 40,
+                progressive: true
+            });
+            cb(null, resizer)
     }
 });
 
