@@ -48,6 +48,9 @@ const storage = diskStorage({
         post.uploads = uploads;
         await post.save();
 
+        //
+        req.filePath = dir + "/" + fileName;
+
         cb(null, fileName);
     },
     sharp : (req, file, cb) => {
@@ -97,7 +100,8 @@ router.post('/image', (req, res) => {
 
         res.json({
             ok: !error,
-            error
+            error,
+            filePath:  req.filePath
         });
     });
 });
