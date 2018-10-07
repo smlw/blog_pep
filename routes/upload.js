@@ -4,7 +4,8 @@ const path = require('path');
 const Sharp = require('sharp');
 const multer = require('multer');
 const mkdirp = require('mkdirp');
-const diskStorage = require('../utils/diskStorage')
+const diskStorage = require('../utils/diskStorage');
+const models = require('../models');
 
 const config = require('../config')
 
@@ -13,11 +14,41 @@ const rs = () => Math.random().toString(36).slice(-3);
 const storage = diskStorage({
     destination: (req, file, cb) => {
         const dir = '/' + rs() + '/' + rs();
+        req.dir = dir;
+
         mkdirp(config.DESTINATION + dir, err => cb(err, config.DESTINATION + dir))
         // cb(null, config.DESTINATION + dir);
     },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
+    filename: async (req, file, cb) => {
+        const userId = req.session.userId;
+        const fileName = Date.now().toString(36) + path.extname(file.originalname)
+        const dir = req.dir;
+
+        console.log(req.body)
+
+        // find post
+        const post = await models.Post.findById(req.body.postId);
+
+        if(!post){
+            const err = new Error('No post');
+            err.code = "NOPOST"
+            return cb(err)
+        }
+
+        //upload
+        const upload = await models.Upload.create({
+            owner: userId,
+            path: dir + "/" + fileName
+        });
+
+        // write to post
+
+        const uploads = post.uploads;
+        uploads.push(upload.id);
+        post.uploads = uploads;
+        await post.save();
+
+        cb(null, fileName);
     },
     sharp : (req, file, cb) => {
         const resizer = Sharp()
@@ -58,6 +89,9 @@ router.post('/image', (req, res) => {
             }
             if (err.code === 'EXTENTION') {
                 error = "Только Jpeg And Png!"
+            }
+            if (err.code === 'NOPOST') {
+                error = "Обнови страницу"
             }
         }
 
