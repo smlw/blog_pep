@@ -23,7 +23,7 @@
 
         <div id="fileinfo">
           <% post.uploads.forEach(function(upload){ %>
-            <div class="img-container"><img src="/uploads<%= upload.path %>" alt="" /></div>
+            <div class="img-container" id="<%= upload.id %>"><img src="/uploads<%= upload.path %>" alt="" /></div>
           <% }) %>
 
           <label for="file" class="custom-file-upload">
