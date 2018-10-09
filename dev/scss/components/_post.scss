@@ -57,7 +57,8 @@
       outline: none
     }
   }
-  #fileinfo{
+
+  #fileinfo {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -66,7 +67,7 @@
     padding: $freeSpace;
     background-color: $whiteColor;
 
-    .custom-file-upload{
+    .custom-file-upload {
       overflow: hidden;
       position: relative;
       cursor: pointer;
@@ -78,8 +79,19 @@
       border-radius: $borderRadius;
       height: 50px;
 
-      input[type=file]{
+      input[type='file'] {
         display: none;
+      }
+
+    }
+
+    .img-container {
+      height: 50px;
+      border: 1px solid $greyColor;
+      margin-right: $freeSpace;
+
+      img {
+        height: 100%;
       }
     }
   }
