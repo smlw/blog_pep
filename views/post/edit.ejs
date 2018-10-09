@@ -13,7 +13,7 @@
 
         <div class="form-group">
           <label for="post-title">Заголовок</label>
-          <input type="text" id="post-title" name="title" value="<%= post.title %>"  />
+          <input type="text" id="post-title" name="title" value="<%= post.title %>" />
         </div>
         <div class="form-group">
           <label for="post-body">Текст</label>
@@ -22,8 +22,12 @@
         <input type="hidden" id="post-id" name="postId" value="<%= post.id %>">
 
         <div id="fileinfo">
+          <% post.uploads.forEach(function(upload){ %>
+            <div class="img-container"><img src="/uploads<%= upload.path %>" alt="" /></div>
+          <% }) %>
+
           <label for="file" class="custom-file-upload">
-            <input type="file" name="file" id="file" required> + 
+            <input type="file" name="file" id="file" required> +
           </label>
         </div>
 

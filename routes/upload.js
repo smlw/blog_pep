@@ -44,7 +44,7 @@ const storage = diskStorage({
         // write to post
 
         const uploads = post.uploads;
-        uploads.push(upload.id);
+        uploads.unshift(upload.id);
         post.uploads = uploads;
         await post.save();
 

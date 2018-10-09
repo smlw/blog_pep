@@ -14,7 +14,7 @@ router.get('/edit/:id', async (req, res, next) => {
     res.redirect('/');
   } else {
     try {
-      const post = await models.Post.findById(id);
+      const post = await models.Post.findById(id).populate('uploads');
 
       if (!post) {
         const err = new Error('Not Found');
@@ -61,12 +61,6 @@ router.get('/add', async (req, res) => {
     } catch (error) {
       console.log(error);
     }
-    // res.render('post/edit', {
-    //   user: {
-    //     id: userId,
-    //     login: userLogin
-    //   }
-    // });
   }
 });
 
