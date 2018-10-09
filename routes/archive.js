@@ -3,6 +3,8 @@ const router = express.Router();
 const moment = require('moment');
 moment.locale('ru');
 
+const showdown = require('showdown')
+
 const models = require('../models')
 const config = require('../config');
 
@@ -15,15 +17,31 @@ async function posts(req, res) {
     const page = req.params.page || 1;
 
     try {
-        const posts = await models.Post.find({
+        let posts = await models.Post.find({
             status: 'published'
         })
             .skip(perPage * page - perPage)
             .limit(perPage)
             .populate('owner')
+            .populate('uploads')
             .sort({
                 createdAt: -1
             });
+
+        const converter = new showdown.Converter();
+
+        posts = posts.map(post => {
+            let body = post.body;
+            if(post.uploads.length){
+                post.uploads.forEach(upload => {
+                    body = body.replace(`image${upload.id}`, `/${config.DESTINATION}${upload.path}`)
+                })
+            }
+
+            return Object.assign(post, {
+                body: converter.makeHtml(body)
+            })
+        })
 
         const count = await models.Post.count();
 
@@ -61,7 +79,9 @@ router.get('/posts/:post', async (req, res, next) => {
             const post = await models.Post.findOne({
                 url,
                 status: 'published'
-            }).populate('owner');
+            })
+            .populate('owner')
+            .populate('uploads');
 
             if (!post) {
                 const err = new Error('Not found');
@@ -74,8 +94,19 @@ router.get('/posts/:post', async (req, res, next) => {
                     parent: {$exists: false}
                 });
 
+                const converter = new showdown.Converter();
+
+                let body = post.body;
+                if(post.uploads.length){
+                    post.uploads.forEach(upload => {
+                        body = body.replace(`image${upload.id}`, `/${config.DESTINATION}${upload.path}`)
+                    })
+                }
+
                 res.render('post/post', {
-                    post,
+                    post: Object.assign(post, {
+                        body: converter.makeHtml(body)
+                    }),
                     comments,
                     moment,
                     user: {
@@ -108,7 +139,7 @@ router.get('/users/:login/:page*?', async (req, res) => {
             login
         });
 
-        const posts = await models.Post.find({
+        let posts = await models.Post.find({
                 owner: user.id
             })
             .skip(perPage * page - perPage)
@@ -116,10 +147,26 @@ router.get('/users/:login/:page*?', async (req, res) => {
             .populate('owner')
             .sort({
                 createdAt: -1
-            });
+            })
+            .populate('uploads');
 
         const count = models.Post.count({
             owner: user.id
+        })
+
+        const converter = new showdown.Converter();
+
+        posts = posts.map(post => {
+            let body = post.body;
+            if(post.uploads.length){
+                post.uploads.forEach(upload => {
+                    body = body.replace(`image${upload.id}`, `/${config.DESTINATION}${upload.path}`)
+                })
+            }
+
+            return Object.assign(post, {
+                body: converter.makeHtml(body)
+            })
         })
 
         res.render('archive/user', {

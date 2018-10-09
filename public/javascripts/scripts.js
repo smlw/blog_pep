@@ -177,8 +177,8 @@ $(function () {
         var imageId = $(this).attr('id');
         var txt = $('#post-body');
         var caretPos = txt[0].selectionStart;
-        var textAreaTxt = txt.val();
-        var txtToAdd = '![alt text](image '+ imageId +')';
+        var textAreaTxt = txt.val(); 
+        var txtToAdd = '![alt text](image'+imageId+')';
         txt.val(textAreaTxt.substring(0, caretPos) + txtToAdd + textAreaTxt.substring(caretPos))
     })
 });
