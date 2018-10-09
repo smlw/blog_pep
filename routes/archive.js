@@ -140,7 +140,8 @@ router.get('/users/:login/:page*?', async (req, res) => {
         });
 
         let posts = await models.Post.find({
-                owner: user.id
+                owner: user.id,
+                status: 'published'
             })
             .skip(perPage * page - perPage)
             .limit(perPage)
