@@ -6,7 +6,33 @@
             <h1>Настройки пользователя
                 <%= user.login %>
             </h1>
+            <!-- <div class="apc-setting_main">
+                <div class="last-change-date">
+                    <span>Последний раз пароль был изменен:</span>
+                    <span>{{Date}}</span>
+                </div>
+                <div class="next-change-date">
+                    <span>До смены текущего пароля осталось</span>
+                    <span>{{Date}}</span>
+                </div>
+            </div> -->
 
+            <form method="POST" class="apc-form">
+                <div>
+                    <label for="symbolCount">Символов в пароле</label>
+                    <input type="text" id="symbolCount" name="symbolCount" />
+                </div>
+                <div>
+                    <label for="period">Периодичность смены</label>
+                    <select name="period" id="period">
+                        <option value="1">1 раз в сутки</option>
+                        <option value="2">2 раза в сутки</option>
+                    </select>
+                </div>
+                <div>
+                    <button type="submit" id="apc-save">Сохранить</button>
+                </div>
+            </form>
         </div>
         <% include ../layout/sidebar.ejs %>
     </div>

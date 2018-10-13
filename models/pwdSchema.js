@@ -2,10 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    userId: {
-        type: Schema.Types.ObjectId,
-        refs: 'User', //user schema
-        autopopulate: true
+    pwdUserId: {
+        type: Schema.Types.ObjectId //user schema
     },
     symbolCount: {
         type: Number,
@@ -16,13 +14,12 @@ const schema = new Schema({
         default: 86400000
     },
     recipientContact: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        autopopulate: true
+        type: String,
+        unique: true
     },
-    updated: {
-        type: Date, 
-        default: Date.now 
+    isActive: {
+        type: Boolean,
+        default: true
     }
 }, {
     timestamps: true

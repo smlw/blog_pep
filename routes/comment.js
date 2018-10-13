@@ -11,7 +11,7 @@ router.post('/add', async (req, res) => {
   if (!userId || !userLogin) {
     res.json({
       ok: false
-    });
+    }); 
   } else {
     const post = req.body.post;
     const body = req.body.body;
