@@ -6,16 +6,14 @@
             <h1>Настройки пользователя
                 <%= user.login %>
             </h1>
-            <!-- <div class="apc-setting_main">
+            <div class="apc-setting_main">
                 <div class="last-change-date">
                     <span>Последний раз пароль был изменен:</span>
-                    <span>{{Date}}</span>
+                    <span class="date">
+                        <%= moment(apcSettings.pwdUserId.updatedAt).format('MMMM Do YYYY, h:mm:ss a') %>
+                    </span>
                 </div>
-                <div class="next-change-date">
-                    <span>До смены текущего пароля осталось</span>
-                    <span>{{Date}}</span>
-                </div>
-            </div> -->
+            </div>
 
             <form method="POST" class="apc-form">
                 <div>

@@ -5,7 +5,7 @@ const autopopulate = require('mongoose-autopopulate');
 const Post = require('./post');
 
 const schema = new Schema({
-    body: {
+    body: { 
         type: String,
         required: true
     },
