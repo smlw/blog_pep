@@ -58,6 +58,32 @@ app.use(
 // routers
 
 
+const nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'smlwmy@gmail.com',
+        password: '741258aas'
+    }
+})
+
+var mailOptions = {
+    from: 'My Name <smlwmy@gmail.com>',
+    to: 'Aleks.samoiloff@yandex.ru',
+    subject: 'Nodemailer test',
+    text: 'Hello World!!'
+}
+
+transporter.sendMail(mailOptions, function (err, res) {
+    if(err){
+        console.log('Error');
+    } else {
+        console.log('Email Sent');
+    }
+})
+
+
 // Routers
 app.use('/api/auth', routes.auth);
 app.use('/post', routes.post);
